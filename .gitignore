@@ -1,0 +1,28 @@
+# Node.js
+/node_modules
+/out
+/dist
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Python
+/backend/__pycache__/
+/backend/*.pyc
+/venv
+*.env
+
+# Electron
+.electron/
+
+# macOS
+.DS_Store
+
+# Temporary files from our script
+/temp_archive.zip
+/extracted_temp.zip
+/backend/temp_archive.zip
+/backend/extracted_temp.zip
+/debug_payload.zip
+/backend/debug_payload.zip

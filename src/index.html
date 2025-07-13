@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+    <title>VideoVault</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- HOME PAGE -->
+        <div id="home-page">
+            <h1>VideoVault</h1>
+            <p>A tool to securely hide files inside video containers using various methods.</p>
+            <div class="method-cards-container">
+                <div class="card">
+                    <h2>Method 1: Append</h2>
+                    <p>Bundles your files into a password-protected archive and appends it to the end of the video file. This does not modify the original video stream.</p>
+                    <p><strong>Pros:</strong> Fast, doesn't re-encode the video.</p>
+                    <p><strong>Cons:</strong> Easiest to detect if someone analyzes the file size.</p>
+                    <div class="card-buttons">
+                        <button data-method="append" class="btn-encode btn-primary">Encode</button>
+                        <button data-method="append" class="btn-decode btn-secondary">Decode</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>Method 2: Steganography (LSB)</h2>
+                    <p>Embeds data directly into the pixel information of the video frames using the Least Significant Bit (LSB) technique.</p>
+                    <p><strong>Pros:</strong> Very difficult to detect without knowing the technique.</p>
+                    <p><strong>Cons:</strong> Slow, requires re-encoding, limited data capacity.</p>
+                    <div class="card-buttons">
+                        <button data-method="steganography" class="btn-encode btn-primary">Encode</button>
+                        <button data-method="steganography" class="btn-decode btn-secondary">Decode</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>Method 3: Data-Reel</h2>
+                    <p>Converts your data into a sequence of black and white images (like a QR code reel) and creates a new video from them.</p>
+                    <p><strong>Pros:</strong> Self-contained, doesn't need an existing video.</p>
+                    <p><strong>Cons:</strong> Creates a visually obvious data-only video, slow.</p>
+                    <div class="card-buttons">
+                        <button data-method="datareel" class="btn-encode btn-primary">Encode</button>
+                        <button data-method="datareel" class="btn-decode btn-secondary">Decode</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="process-page" class="hidden">
+            <button id="back-to-home" class="btn-secondary">← Back</button>
+            <h2 id="process-title">Process Page Title</h2>
+
+            <div class="form-section">
+                <h3>Step 1: Select Carrier Video</h3>
+                <button id="select-video-btn" class="btn-secondary">Choose Video File...</button>
+                <span id="selected-video-path">No video selected.</span>
+            </div>
+
+            <div class="form-section">
+                <h3>Step 2: Add Files to Hide</h3>
+                <button id="add-files-btn" class="btn-secondary">Add Files...</button>
+                <ul id="file-list">
+                </ul>
+            </div>
+
+            <div class="form-section">
+                <h3>Step 3: Set Password</h3>
+                <div class="password-container">
+                    <input type="password" id="password-input" placeholder="Enter a strong password">
+                    <button id="suggest-password-btn" class="btn-suggest" title="Suggest a secure password">✨</button>
+                </div>
+            </div>
+
+            <button id="start-process-btn" class="btn-primary">Start Encoding</button>
+
+            <!-- <div class="progress-section">
+                <h3>Progress</h3>
+                <div class="progress-bar-container">
+                    <div id="progress-bar" class="progress-bar-fill"></div>
+                </div>
+                <p id="status-text">Waiting to start...</p>
+            </div> -->
+        </div>
+
+
+        <div id="decode-page" class="hidden">
+            <button id="back-to-home-decode" class="btn-secondary">← Back</button>
+            <h2 id="decode-title">Decode Page Title</h2>
+
+            <div class="form-section manifest-peek">
+                <button id="peek-inside-btn" class="btn-secondary">🔍 Peek Inside</button>
+                <div id="manifest-display" class="hidden">
+                    <strong>AI-Generated Manifest:</strong>
+                    <p id="manifest-text">Loading...</p>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Step 1: Select Video to Decode</h3>
+                <button id="select-video-decode-btn" class="btn-secondary">Choose Video File...</button>
+                <span id="selected-video-decode-path">No video selected.</span>
+            </div>
+
+            <div class="form-section">
+                <h3>Step 2: Enter Password (if any)</h3>
+                <input type="password" id="password-input-decode" placeholder="Leave blank if no password was used">
+            </div>
+
+            <div class="form-section">
+                <h3>Step 3: Select Output Folder</h3>
+                <button id="select-folder-decode-btn" class="btn-secondary">Choose Folder...</button>
+                <span id="selected-folder-decode-path">No folder selected.</span>
+            </div>
+
+            <button id="start-decode-btn" class="btn-primary">Start Decoding</button>
+
+
+        </div>
+
+        <div id="progress-section" class="hidden">
+            <h3>Progress</h3>
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar-fill"></div>
+            </div>
+            <p id="status-text">Waiting to start...</p>
+        </div>
+
+
+        
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
